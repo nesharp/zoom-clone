@@ -1,31 +1,22 @@
+import { MeetingTypeList } from "@/components/MeetingTypeList";
+
 export default function Page() {
   const now = new Date();
-  const time = now
-    .toLocaleTimeString()
-    .split(" ")
-    .map((t, i) => {
-      if (i === 0) {
-        return t.split(":").slice(0, 2).join(":");
-      }
-      return t;
-    })
-    .join(" ");
+  const time = now.toLocaleTimeString("default", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
-  const date = now
-    .toLocaleString("default", {
-      month: "long",
-      day: "2-digit",
-      weekday: "long",
-      year: "numeric",
-    })
-    .replace(",", "");
+  const date = new Intl.DateTimeFormat("en-US", {
+    dateStyle: "full",
+  }).format(now);
   return (
     <section className="flex size-full flex-col gap-10 text-white ">
       <h1 className="text-3xl font-bold">Home</h1>
       <div className="h-[300px] w-full rounded-[20px] bg-hero bg-cover">
-        <div className="flex h-full flex-col justify-between max-md:px-5 max-md:py-8 lg:p-11">
+        <div className="flex h-full flex-col justify-between max-md:px-5 max-md:py-8 p-11">
           <h2 className="glassmorphism max-w-[270px] rounded py-2 text-center text-base font-normal">
-            Upcoming meating at: 12:30 PM
+            Upcoming meeting at: 12:30 PM
           </h2>
           <div className="flex flex-col gap-2">
             <h1 className="text-4xl font-extrabold lg:text-7xl">{time}</h1>
@@ -33,6 +24,7 @@ export default function Page() {
           </div>
         </div>
       </div>
+      <MeetingTypeList />
     </section>
   );
 }

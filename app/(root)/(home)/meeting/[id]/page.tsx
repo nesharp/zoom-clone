@@ -1,3 +1,3 @@
 const MeetingPage = () => {
-  return <div>Meating</div>;
+  return <div>meeting</div>;
 };
