@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { MeetingListItem } from "./MeetingListItem";
 import { useRouter } from "next/navigation";
+import { MeetingModal } from "./MeetingModal";
 type MeetingType =
   | "isScheduleMeeting"
   | "isJoiningMeeting"
@@ -10,6 +11,7 @@ type MeetingType =
 export const MeetingTypeList = () => {
   const [meetingState, setMeetingState] = useState<MeetingType>();
   const router = useRouter();
+  const createMeeting = () => {};
   return (
     <section className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
       <MeetingListItem
@@ -17,7 +19,7 @@ export const MeetingTypeList = () => {
         description="Start an instant meeting"
         imgUrl="/icons/add-meeting.svg"
         className="bg-orange-1"
-        onClick={() => setMeetingState("isJoiningMeeting")}
+        onClick={() => setMeetingState("isInstantMeeting")}
       />
       <MeetingListItem
         title="Schedule Meeting"
@@ -38,6 +40,15 @@ export const MeetingTypeList = () => {
         description="via invite link or code"
         imgUrl="/icons/join-meeting.svg"
         className="bg-yellow-1"
+        onClick={() => setMeetingState("isJoiningMeeting")}
+      />
+      <MeetingModal
+        isOpen={meetingState === "isInstantMeeting"}
+        onClose={() => setMeetingState(undefined)}
+        title="Start an Instant Meeting"
+        className="text-center"
+        buttonText="Start Meeting"
+        onClick={createMeeting}
       />
     </section>
   );
